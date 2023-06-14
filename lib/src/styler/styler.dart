@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 
 part 'widget_styler.dart';
 
@@ -70,6 +70,18 @@ extension ApplyStyler on Widget {
         case SequenceWidgets.shrink:
           return Flexible(
             flex: styles._shrink!,
+            child: widget,
+          );
+        case SequenceWidgets.ripple:
+          return InkWell(
+            onTap: styles._ripple?.onTap,
+            onDoubleTap: styles._ripple?.onDoubleTap,
+            onLongPress: styles._ripple?.onLongPress,
+            child: widget,
+          );
+        case SequenceWidgets.cursor:
+          return MouseRegion(
+            cursor: styles._cursor!,
             child: widget,
           );
         default:

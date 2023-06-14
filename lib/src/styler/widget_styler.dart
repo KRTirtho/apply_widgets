@@ -12,7 +12,15 @@ enum SequenceWidgets {
   alignment,
   expand,
   shrink,
+  ripple,
+  cursor,
 }
+
+typedef RippleEvents = ({
+  VoidCallback? onTap,
+  VoidCallback? onDoubleTap,
+  VoidCallback? onLongPress,
+});
 
 class WidgetStyler {
   final _applySequence = <SequenceWidgets>[];
@@ -28,6 +36,8 @@ class WidgetStyler {
   Alignment? _alignment;
   int? _expand;
   int? _shrink;
+  RippleEvents? _ripple;
+  SystemMouseCursor? _cursor;
 
   void _updatePadding({
     double? top,
@@ -348,6 +358,32 @@ class WidgetStyler {
     _applySequence.remove(SequenceWidgets.shrink);
     _shrink = flex;
     _applySequence.add(SequenceWidgets.shrink);
+    return this;
+  }
+
+  WidgetStyler ripple({
+    VoidCallback? onTap,
+    VoidCallback? onDoubleTap,
+    VoidCallback? onLongPress,
+  }) {
+    if (onTap == null && onDoubleTap == null && onLongPress == null) {
+      return this;
+    }
+    _applySequence.remove(SequenceWidgets.ripple);
+    _ripple = (
+      onTap: onTap,
+      onDoubleTap: onDoubleTap,
+      onLongPress: onLongPress,
+    );
+    _applySequence.add(SequenceWidgets.ripple);
+    return this;
+  }
+
+  WidgetStyler cursor(SystemMouseCursor? mouseCursor) {
+    if (mouseCursor == null) return this;
+    _applySequence.remove(SequenceWidgets.cursor);
+    _cursor = mouseCursor;
+    _applySequence.add(SequenceWidgets.cursor);
     return this;
   }
 }

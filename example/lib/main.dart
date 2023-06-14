@@ -16,8 +16,8 @@ class MainApp extends StatelessWidget {
           (s) => s
               .text(const TextStyle(color: Colors.blue))
               .p(20)
-              .bgColor(Colors.red)
-              .radius(BorderRadius.circular(10)),
+              .radius(BorderRadius.circular(10))
+              .bgColor(Colors.red),
         ),
       ),
     );
